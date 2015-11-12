@@ -1,14 +1,17 @@
 /**
+ * Created by binyoyo on 15/11/11.
+ */
+
+/**
  * Created by binyoyo on 15/11/10.
  */
-var pubSub = {};
 
-(function (q) {
+var mediator = (function (q) {
 
 	var topics = {};
 	var subUid = -1;
 
-	q.publish = function(topic, args) {
+	var publish = function(topic, args) {
 		if (!topics[topic]) {
 			return false;
 		}
@@ -20,7 +23,7 @@ var pubSub = {};
 		return this;
 	}
 
-	q.subscibe = function(topic, func)	{
+	var subscribe = function(topic, func)	{
 		if (!topics[topic]) {
 			topics[topic] = [];
 		}
@@ -32,7 +35,7 @@ var pubSub = {};
 		return token;
 	}
 
-	q.unsubscribe = function(token) {
+	var unsubscribe = function(token) {
 		for (var m in topics) {
 			if (topics.hasOwnProperty(m) && topics[m].length) {
 				for (var i = 0; i < topics[m].length; i++) {
@@ -45,14 +48,16 @@ var pubSub = {};
 		}
 		return false;
 	}
-})(pubSub);
+
+	return {
+		publish: publish,
+		subscribe: subscribe,
+		unsubscribe: unsubscribe
+	}
+})();
 
 
-var test = pubSub.subscibe('testData', function (data) {
-	console.log('subscribe test');
-});
 
-pubSub.publish('testData', {'test1': 'test1'});
-pubSub.publish('testData', {'test2': 'test2'});
+
 
 
