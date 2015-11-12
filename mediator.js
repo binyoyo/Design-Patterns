@@ -1,8 +1,4 @@
 /**
- * Created by binyoyo on 15/11/11.
- */
-
-/**
  * Created by binyoyo on 15/11/10.
  */
 
